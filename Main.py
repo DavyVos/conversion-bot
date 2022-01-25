@@ -1,20 +1,15 @@
-from MyObject import MyObject
+import discord
+import os
+from dotenv import load_dotenv
+
+load_dotenv('token.env')
+TOKEN = os.getenv('DISCORD_TOKEN')
+
+client = discord.Client()
 
 
-def main():
-    tuple_of_my_object = init_my_objects()
-    print_my_object(tuple_of_my_object)
+@client.event
+async def on_ready():
+    print(f'{client.user} has connected to Discord!')
 
-
-def init_my_objects():
-    my_tuple = (MyObject(1, "Poopypants"), MyObject(2, "Pablo"))
-    return my_tuple
-
-
-def print_my_object(my_tuple):
-    for x in my_tuple:
-        print("Name of first object is: " + x.name + "\nHis jersey number is: " + str(x.number))
-
-
-if __name__ == '__main__':
-    main()
+client.run(TOKEN)
